@@ -1,0 +1,33 @@
+
+gameatlas.png
+size: 256, 128
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+basics/white-pixel
+  rotate: false
+  xy: 1, 1
+  size: 10, 10
+  split: 3, 3, 3, 3
+  pad: 0, 0, 0, 0
+  orig: 10, 10
+  offset: 0, 0
+  index: -1
+basics/white-squircle-35
+  rotate: false
+  xy: 1, 13
+  size: 72, 72
+  split: 34, 34, 34, 34
+  pad: 0, 0, 0, 0
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+basics/white-squircle-border-35
+  rotate: false
+  xy: 75, 13
+  size: 72, 72
+  split: 34, 34, 34, 34
+  pad: 0, 0, 0, 0
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
