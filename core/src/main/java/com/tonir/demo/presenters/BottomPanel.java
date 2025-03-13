@@ -57,7 +57,7 @@ public class BottomPanel extends Table implements EventListener {
         private boolean isSelected;
 
         public BottomButton () {
-            super(Style.WHITE_GRAY_35_30);
+            super(Style.GREEN_35);
 
             final Image icon = new Image(Resources.getDrawable("basics/white-pixel", Color.RED), Scaling.fit);
             frontTable.add(icon).size(100);
