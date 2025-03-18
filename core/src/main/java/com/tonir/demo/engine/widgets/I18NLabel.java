@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.StringBuilder;
-import com.tonir.demo.localization.Font;
+import com.tonir.demo.localization.GameFont;
 import com.tonir.demo.localization.Localization;
 import com.tonir.demo.managers.API;
 import com.tonir.demo.engine.Resources;
@@ -99,11 +99,11 @@ public class I18NLabel extends Label {
         super.setText(API.get(Localization.class).format(key, param1, param2, param3));
     }
 
-    public static I18NLabel make (Font font, Color color) {
+    public static I18NLabel make (GameFont font, Color color) {
         return make(font, color, null);
     }
 
-    public static I18NLabel make (Font font, Color color, CharSequence text) {
+    public static I18NLabel make (GameFont font, Color color, CharSequence text) {
         final Label.LabelStyle labelStyle = API.get(Resources.class).getLabelStyle(font);
         final I18NLabel label = new I18NLabel(text, labelStyle);
         label.setColor(color);

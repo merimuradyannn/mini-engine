@@ -117,7 +117,7 @@ public abstract class ADialog extends Table {
     }
 
     protected void initDialog () {
-        setBackground(API.get(Resources.class).obtainDrawable("basics/white-pixel", Color.valueOf("#000000bf")));
+        setBackground(Resources.getDrawable("basics/white-pixel", Color.valueOf("#000000bf")));
         setTouchable(Touchable.enabled);
         setFillParent(true);
         addListener(new ClickListener() {

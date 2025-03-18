@@ -3,7 +3,7 @@ package com.tonir.demo.localization;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 
-public enum Font implements IFont {
+public enum GameFont implements IFont {
     BOLD_20("bold", 20),
     BOLD_22("bold", 22),
     BOLD_24("bold", 24),
@@ -26,10 +26,10 @@ public enum Font implements IFont {
     STROKED_50("stroked", 50),
     ;
 
-    public static final ObjectMap<String, Array<Font>> typeMap = new ObjectMap<>();
+    public static final ObjectMap<String, Array<GameFont>> typeMap = new ObjectMap<>();
 
     static {
-        for (Font value : Font.values()) {
+        for (GameFont value : GameFont.values()) {
             String type = value.getFontType();
             if (!typeMap.containsKey(type)) {
                 typeMap.put(type, new Array<>());
@@ -42,7 +42,7 @@ public enum Font implements IFont {
     private final String fontType;
     private final int fontSize;
 
-    Font (String fontType, int fontSize) {
+    GameFont (String fontType, int fontSize) {
         this.fontType = fontType;
         this.fontSize = fontSize;
     }
@@ -59,6 +59,6 @@ public enum Font implements IFont {
 
     @Override
     public String getFontName () {
-        return fontType + "-" + fontSize;
+        return "bold";// fontType + "-" + fontSize;
     }
 }

@@ -11,9 +11,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Scaling;
-import com.tonir.demo.engine.GameFont;
 import com.tonir.demo.engine.Labels;
 import com.tonir.demo.engine.Resources;
+import com.tonir.demo.localization.GameFont;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -47,7 +47,6 @@ public class NotificationWidget extends Table {
         icon.setOrigin(size / 2.0f, size / 2.0f);
         arrowTable.add(icon).grow();
 
-        // TODO: 07.02.24 figure out what to do with this
         numberTable.setBackground(Resources.getDrawable("ui/ui-notification-empty"));
         numberLabel = Labels.make(font, Color.WHITE);
         numberLabel.setAlignment(Align.center);

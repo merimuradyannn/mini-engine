@@ -5,13 +5,11 @@ import com.badlogic.gdx.assets.loaders.TextureAtlasLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.ObjectMap;
-import com.tonir.demo.localization.Font;
+import com.tonir.demo.localization.GameFont;
 import com.tonir.demo.managers.API;
 import lombok.Getter;
 
@@ -23,92 +21,56 @@ public class Resources implements Disposable {
     @Getter
     private final Skin uiSkin;
 
-    private final ObjectMap<String, Drawable> drawableCache = new ObjectMap<>();
-    private final ObjectMap<String, ObjectMap<Color, String>> drawableKeyCache = new ObjectMap<>();
+    private final FontManager fontManager;
+    private final DrawableManager drawableManager;
 
     public Resources () {
         // initialize asset manager and loaders
-        final InternalFileHandleResolver internalFileHandleResolver = new InternalFileHandleResolver();
-        this.assetManager = new AssetManager();
-        this.assetManager.setLoader(TextureAtlas.class, new TextureAtlasLoader(internalFileHandleResolver));
+        final InternalFileHandleResolver resolver = new InternalFileHandleResolver();
+        assetManager = new AssetManager();
+        assetManager.setLoader(TextureAtlas.class, new TextureAtlasLoader(resolver));
 
         // load default assets
-        this.assetManager.load("gameassets/gameatlas.atlas", TextureAtlas.class);
-        this.assetManager.finishLoading();
+        assetManager.load("gameassets/gameatlas.atlas", TextureAtlas.class);
+        assetManager.finishLoading();
 
-        // initialize UI skin with loaded atlas
-        TextureAtlas atlas = this.assetManager.get("gameassets/gameatlas.atlas", TextureAtlas.class);
-        this.uiSkin = new Skin(atlas);
+        final TextureAtlas atlas = assetManager.get("gameassets/gameatlas.atlas", TextureAtlas.class);
+        uiSkin = new Skin(atlas);
+
+        // initialize managers
+        fontManager = new FontManager();
+        fontManager.preloadFonts(GameFont.values());
+        drawableManager = new DrawableManager(uiSkin);
     }
 
-    public static Drawable getDrawable (String region, Color color) {
-        return API.get(Resources.class).obtainDrawable(region, color);
+    public FontManager getFontManager () {
+        return fontManager;
     }
 
-    public static Drawable getDrawable (String region) {
+    public DrawableManager getDrawableManager () {
+        return drawableManager;
+    }
+
+    // static facade method to get a BitmapFont from a Font
+    public static Label.LabelStyle getLabelStyle (final GameFont font) {
+        return API.get(Resources.class).getFontManager().getLabelStyle(font);
+    }
+
+    // static facade method to get a Drawable from a region and color
+    public static Drawable getDrawable (final String region, final Color color) {
+        return API.get(Resources.class).getDrawableManager().getDrawable(region, color);
+    }
+
+    // static facade method with default white color
+    public static Drawable getDrawable (final String region) {
         return getDrawable(region, Color.WHITE);
-    }
-
-    // obtain a drawable with specified region and color
-    public Drawable obtainDrawable (String region, Color color) {
-        final String key = getKeyFromRegionColor(region, color);
-
-        if (drawableCache.containsKey(key)) {
-            return drawableCache.get(key);
-        }
-
-        if (!uiSkin.has(region, TextureRegion.class)) {
-            throw new IllegalArgumentException("Region not found in UI skin: " + region);
-        }
-
-        final Drawable drawable = uiSkin.newDrawable(region, color);
-        drawableCache.put(key, drawable);
-        return drawable;
-    }
-
-    // obtain a drawable with a default fallback region
-    public Drawable obtainDrawable (String region, Color color, String defaultRegion) {
-        final String key = getKeyFromRegionColor(region, color);
-
-        if (drawableCache.containsKey(key)) {
-            return drawableCache.get(key);
-        }
-
-        final String regionToUse = uiSkin.has(region, TextureRegion.class) ? region : defaultRegion;
-
-        if (!uiSkin.has(regionToUse, TextureRegion.class)) {
-            throw new IllegalArgumentException("Neither region nor default region found in UI skin: " + regionToUse);
-        }
-
-        final Drawable drawable = uiSkin.newDrawable(regionToUse, color);
-        drawableCache.put(key, drawable);
-        return drawable;
-    }
-
-    // build a unique key based on region and color
-    private String getKeyFromRegionColor (String region, Color color) {
-        if (!drawableKeyCache.containsKey(region)) {
-            drawableKeyCache.put(region, new ObjectMap<>());
-        }
-
-        ObjectMap<Color, String> colorMap = drawableKeyCache.get(region);
-        if (!colorMap.containsKey(color)) {
-            colorMap.put(color, region + "_" + color.toString());
-        }
-
-        return colorMap.get(color);
     }
 
     @Override
     public void dispose () {
         assetManager.dispose();
         uiSkin.dispose();
-        drawableCache.clear();
-        drawableKeyCache.clear();
-    }
-
-    public Label.LabelStyle getLabelStyle (Font font) {
-        // TODO: 31.12.24 make
-        return null;
+        fontManager.dispose();
+        drawableManager.dispose();
     }
 }
