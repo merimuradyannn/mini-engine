@@ -21,7 +21,9 @@ public class Resources implements Disposable {
     @Getter
     private final Skin uiSkin;
 
+    @Getter
     private final FontManager fontManager;
+    @Getter
     private final DrawableManager drawableManager;
 
     public Resources () {
@@ -41,14 +43,6 @@ public class Resources implements Disposable {
         fontManager = new FontManager();
         fontManager.preloadFonts(GameFont.values());
         drawableManager = new DrawableManager(uiSkin);
-    }
-
-    public FontManager getFontManager () {
-        return fontManager;
-    }
-
-    public DrawableManager getDrawableManager () {
-        return drawableManager;
     }
 
     // static facade method to get a BitmapFont from a Font
