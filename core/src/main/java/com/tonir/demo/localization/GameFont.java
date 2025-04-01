@@ -18,7 +18,6 @@ public enum GameFont implements IFont {
     ;
 
     public static final ObjectMap<String, Array<GameFont>> typeMap = new ObjectMap<>();
-
     static {
         for (GameFont value : GameFont.values()) {
             String type = value.getFontType();

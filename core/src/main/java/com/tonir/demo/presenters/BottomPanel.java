@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
 import com.tonir.demo.events.GameStartedEvent;
+import com.tonir.demo.events.core.EventModule;
 import com.tonir.demo.managers.API;
 import com.tonir.demo.pages.core.PageManager;
 import com.tonir.demo.events.core.EventHandler;
@@ -23,7 +24,7 @@ public class BottomPanel extends Table implements EventListener {
     private BottomButton currentButton;
 
     public BottomPanel () {
-        registerEventListener();
+        API.get(EventModule.class).registerListener(this);
 
         setBackground(Resources.getDrawable("basics/white-pixel", Color.WHITE));
 
