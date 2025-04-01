@@ -1,13 +1,11 @@
 package com.bootcamp.demo.presenters;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.bootcamp.demo.engine.Labels;
 import com.bootcamp.demo.localization.GameFont;
@@ -16,7 +14,8 @@ import com.bootcamp.demo.pages.core.APage;
 import lombok.Getter;
 import lombok.Setter;
 
-public class UI implements Disposable, Screen {
+public class GameUI extends ScreenAdapter implements Disposable {
+    @Getter
     private final Stage stage;
     @Getter
     private final Table rootUI;
@@ -26,8 +25,8 @@ public class UI implements Disposable, Screen {
     @Getter @Setter
     private boolean buttonPressed;
 
-    public UI (Viewport viewport) {
-        API.Instance().register(UI.class, this);
+    public GameUI (Viewport viewport) {
+        API.Instance().register(GameUI.class, this);
 
         rootUI = new Table();
         rootUI.setFillParent(true);
@@ -50,14 +49,7 @@ public class UI implements Disposable, Screen {
     }
 
     @Override
-    public void show () {
-        Gdx.input.setInputProcessor(stage);
-    }
-
-    @Override
     public void render (float delta) {
-        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
-
         stage.act(delta);
         stage.draw();
     }
@@ -65,25 +57,6 @@ public class UI implements Disposable, Screen {
     @Override
     public void resize (int width, int height) {
         stage.getViewport().update(width, height, true);
-    }
-
-    @Override
-    public void pause () {
-        System.out.println("Game paused.");
-        // save state if necessary
-    }
-
-    @Override
-    public void resume () {
-        System.out.println("Game resumed.");
-        // restore state if necessary
-    }
-
-    @Override
-    public void hide () {
-        if (Gdx.input.getInputProcessor() == stage) {
-            Gdx.input.setInputProcessor(null);
-        }
     }
 
     @Override

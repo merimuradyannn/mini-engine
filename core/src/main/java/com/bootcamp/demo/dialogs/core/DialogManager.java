@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.bootcamp.demo.events.dialog.DialogClosedEvent;
 import com.bootcamp.demo.events.dialog.DialogOpenedEvent;
 import com.bootcamp.demo.managers.API;
-import com.bootcamp.demo.presenters.UI;
+import com.bootcamp.demo.presenters.GameUI;
 
 public class DialogManager implements Disposable {
 
@@ -33,7 +33,7 @@ public class DialogManager implements Disposable {
         final ADialog dialog = getDialog(clazz);
         if (dialog == null) return;
 
-        API.get(UI.class).getRootUI().addActor(dialog);
+        API.get(GameUI.class).getRootUI().addActor(dialog);
         // TODO: 30.12.24 left null for now
         dialog.show(null);
         openedDialogs.add(dialog);
