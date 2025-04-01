@@ -8,13 +8,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.bootcamp.demo.engine.Labels;
+import com.bootcamp.demo.events.core.EventListener;
+import com.bootcamp.demo.events.core.EventModule;
 import com.bootcamp.demo.localization.GameFont;
 import com.bootcamp.demo.managers.API;
 import com.bootcamp.demo.pages.core.APage;
 import lombok.Getter;
 import lombok.Setter;
 
-public class GameUI extends ScreenAdapter implements Disposable {
+public class GameUI extends ScreenAdapter implements Disposable, EventListener {
+
     @Getter
     private final Stage stage;
     @Getter
@@ -27,6 +30,7 @@ public class GameUI extends ScreenAdapter implements Disposable {
 
     public GameUI (Viewport viewport) {
         API.Instance().register(GameUI.class, this);
+        API.get(EventModule.class).registerListener(this);
 
         rootUI = new Table();
         rootUI.setFillParent(true);
@@ -35,17 +39,8 @@ public class GameUI extends ScreenAdapter implements Disposable {
         stage = new Stage(viewport);
         stage.addActor(rootUI);
 
-        // init components
-        final BottomPanel bottomPanel = new BottomPanel();
-
-        final Label labelTest = Labels.make(GameFont.BOLD_60, "Test");
-
         // construct
         mainPageCell = rootUI.add().grow();
-        rootUI.row();
-        rootUI.add(labelTest);
-        rootUI.row();
-        rootUI.add(bottomPanel).growX().height(300);
     }
 
     @Override
