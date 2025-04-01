@@ -2,6 +2,7 @@ package com.bootcamp.demo;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.bootcamp.demo.events.GameStartedEvent;
 import com.bootcamp.demo.managers.API;
 import com.bootcamp.demo.events.core.EventModule;
@@ -10,6 +11,8 @@ public class DemoGame extends Game {
 
     @Override
     public void create () {
+        Gdx.input.setInputProcessor(new InputMultiplexer());
+
         setScreen(new GameScreen());
         API.get(EventModule.class).fireEvent(GameStartedEvent.class);
     }

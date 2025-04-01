@@ -1,6 +1,7 @@
 package com.bootcamp.demo;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -38,7 +39,9 @@ public final class GameScreen implements Screen {
     @Override
     public void show () {
         // if needed, set an input multiplexer to handle both stages
-        Gdx.input.setInputProcessor(ui.getStage());
+        final InputMultiplexer inputProcessor = (InputMultiplexer) Gdx.input.getInputProcessor();
+        inputProcessor.addProcessor(game.getStage());
+        inputProcessor.addProcessor(ui.getStage());
     }
 
     @Override
@@ -72,7 +75,9 @@ public final class GameScreen implements Screen {
 
     @Override
     public void hide () {
-        Gdx.input.setInputProcessor(null);
+        final InputMultiplexer inputProcessor = (InputMultiplexer) Gdx.input.getInputProcessor();
+        inputProcessor.removeProcessor(game.getStage());
+        inputProcessor.removeProcessor(ui.getStage());
 
         game.hide();
         ui.hide();
