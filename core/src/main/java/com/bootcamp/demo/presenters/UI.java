@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.bootcamp.demo.engine.Labels;
 import com.bootcamp.demo.localization.GameFont;
@@ -55,6 +56,8 @@ public class UI implements Disposable, Screen {
 
     @Override
     public void render (float delta) {
+        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
+
         stage.act(delta);
         stage.draw();
     }

@@ -2,6 +2,7 @@ package com.bootcamp.demo.dialogs.core;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -11,6 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
+import com.bootcamp.demo.engine.Labels;
+import com.bootcamp.demo.engine.Squircle;
+import com.bootcamp.demo.localization.GameFont;
 import com.bootcamp.demo.managers.API;
 import com.bootcamp.demo.engine.Resources;
 import lombok.Getter;
@@ -131,27 +135,39 @@ public abstract class ADialog extends Table {
     }
 
     protected Table constructContentWrapper () {
-        final Table asyncContentWrapper = new Table();
-        asyncContentWrapper.add(content).grow();
-
         final Table contentWrapper = new Table();
         titleSegmentCell = contentWrapper.add(titleSegment).growX();
         contentWrapper.row();
-        contentWrapper.add(asyncContentWrapper).grow();
+        contentWrapper.add(content).grow();
         return contentWrapper;
     }
 
     protected void constructDialog (Table dialog) {
-//        dialog.setBackground(getDialogBackground());
+        dialog.setBackground(getDialogBackground());
         dialog.setTouchable(Touchable.enabled);
         dialog.stack(contentWrapper, overlayTable).grow();
     }
 
     protected void constructTitleSegment (Table titleSegment) {
-//        titleLabel = Labels.make(getTitleFontSize(), FontType.BOLD, getTitleFontColor());
-//        titleLabel.setText(getDialogTitle());
+        titleLabel = Labels.make(getTitleFont(), getTitleFontColor());
+        titleLabel.setText(getTitle());
+        titleLabelCell = titleSegment.add(titleLabel);
+    }
 
-//        titleLabelCell = titleSegment.add(titleLabel).pad(titleSegmentMargin);
+    protected Color getTitleFontColor () {
+        return Color.WHITE;
+    }
+
+    protected GameFont getTitleFont () {
+        return GameFont.BOLD_50;
+    }
+
+    protected String getTitle () {
+        return "Title";
+    }
+
+    protected Drawable getDialogBackground () {
+        return Squircle.SQUIRCLE_35.getDrawable(Color.WHITE);
     }
 
     protected void setTitle (CharSequence title) {
@@ -201,7 +217,6 @@ public abstract class ADialog extends Table {
 
         if (onComplete != null) {
             onComplete.run();
-            ;
         }
     }
 }

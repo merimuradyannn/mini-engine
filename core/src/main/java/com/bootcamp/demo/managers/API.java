@@ -3,6 +3,7 @@ package com.bootcamp.demo.managers;
 import com.badlogic.gdx.utils.*;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
+import com.bootcamp.demo.dialogs.core.DialogManager;
 import com.bootcamp.demo.localization.Localization;
 import com.bootcamp.demo.events.core.EventModule;
 import com.bootcamp.demo.engine.Resources;
@@ -34,6 +35,7 @@ public class API implements Disposable {
         register(Resources.class);
         register(Localization.class);
         register(PageManager.class);
+        register(DialogManager.class);
     }
 
     public <T extends Disposable> void register (Class<T> key, T object) {

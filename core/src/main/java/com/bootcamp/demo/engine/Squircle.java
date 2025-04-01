@@ -29,24 +29,4 @@ public enum Squircle {
     public Drawable getDrawable (Color color) {
         return Resources.getDrawable("basics/" + name + "-" + radius, color);
     }
-
-    public static Drawable getSquircle (int radius, Color color) {
-        return Resources.getDrawable("basics/white-squircle-" + radius, color);
-    }
-
-    public static Drawable getSquircleBtm (int radius, Color color) {
-        return Resources.getDrawable("basics/white-squircle-bottom-" + radius, color);
-    }
-
-    public static Drawable getBorder (int radius, Color color) {
-        return Resources.getDrawable("basics/white-squircle-border-" + radius, color);
-    }
-
-    public static Drawable getBorderRight (int radius, Color color) {
-        return Resources.getDrawable("basics/white-squircle-border-right" + radius, color);
-    }
-
-    public static Drawable getLeaf (int radius, Color color) {
-        return Resources.getDrawable("basics/white-leaf-" + radius, color);
-    }
 }
