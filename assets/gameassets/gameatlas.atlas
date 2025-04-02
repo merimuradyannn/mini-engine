@@ -1,6 +1,6 @@
 
 gameatlas.png
-size: 256, 128
+size: 256, 256
 format: RGBA8888
 filter: Linear, Linear
 repeat: none
@@ -24,10 +24,17 @@ basics/white-squircle-35
   index: -1
 basics/white-squircle-border-35
   rotate: false
-  xy: 75, 13
+  xy: 148, 160
   size: 72, 72
   split: 34, 34, 34, 34
   pad: 0, 0, 0, 0
   orig: 72, 72
+  offset: 0, 0
+  index: -1
+ui/ui-chat-gift-button-icon
+  rotate: false
+  xy: 1, 87
+  size: 145, 145
+  orig: 145, 145
   offset: 0, 0
   index: -1
