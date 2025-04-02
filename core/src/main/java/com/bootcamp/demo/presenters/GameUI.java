@@ -37,7 +37,15 @@ public class GameUI extends ScreenAdapter implements Disposable, EventListener {
         stage.addActor(rootUI);
 
         // construct
-        mainPageCell = rootUI.add().grow();
+        mainPageCell = rootUI.add();
+
+        playground();
+    }
+
+    private void playground () {
+        final Table testTable = new Table();
+        rootUI.add(testTable).size(300);
+        rootUI.debugAll();
     }
 
     @Override

@@ -27,7 +27,7 @@ public class Lwjgl3Launcher {
         config.setWindowedMode((int)(res[0] * scale), (int)(res[1] * scale));
         config.setForegroundFPS(60);
         config.setHdpiMode(HdpiMode.Pixels);
-        config.setTitle("Tonir");
+        config.setTitle("mini zoqanch");
         return config;
     }
 }
