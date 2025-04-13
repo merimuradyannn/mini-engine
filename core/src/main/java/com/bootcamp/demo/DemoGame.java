@@ -71,7 +71,12 @@ public class DemoGame extends Game {
     }
 
     private FileHandle getPlayerDataFileHandler () {
-        return Gdx.files.local("usercache").child("player-data");
+        final FileHandle playerDataFile = Gdx.files.local("usercache").child("player-data");
+        // check if file exists; if not, create an empty file
+        if (!playerDataFile.exists()) {
+            playerDataFile.writeString("", false);
+        }
+        return playerDataFile;
     }
 
     @Override
