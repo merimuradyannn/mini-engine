@@ -13,7 +13,7 @@ public class API implements Disposable {
 
     private static API api;
 
-    private final ObjectMap<Class<?>, Disposable> apiMap = new ObjectMap<>();
+    private final ObjectMap<Class<?>, Object> apiMap = new ObjectMap<>();
 
     public static API Instance () {
         if (api == null) {
@@ -38,12 +38,12 @@ public class API implements Disposable {
         register(DialogManager.class);
     }
 
-    public <T extends Disposable> void register (Class<T> key, T object) {
+    public <T> void register (Class<T> key, T object) {
         if (apiMap.containsKey(key)) return;
         apiMap.put(key, object);
     }
 
-    public <T extends Disposable> void register (Class<T> clazz) {
+    public <T>  void register (Class<T> clazz) {
         if (apiMap.containsKey(clazz)) return;
         try {
             T instance = ClassReflection.newInstance(clazz);
@@ -53,14 +53,16 @@ public class API implements Disposable {
         }
     }
 
-    public <T extends Disposable> void register (T object) {
+    public <T> void register (T object) {
         register((Class<T>) object.getClass(), object);
     }
 
     @Override
     public void dispose () {
-        for (Disposable disposable : apiMap.values()) {
-            disposable.dispose();
+        for (Object value : apiMap.values()) {
+            if (value instanceof Disposable) {
+                ((Disposable) value).dispose();
+            }
         }
         apiMap.clear();
     }

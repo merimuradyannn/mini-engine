@@ -47,6 +47,8 @@ public class GameUI extends ScreenAdapter implements Disposable, EventListener {
 
         // construct
         mainPageCell = rootUI.add().grow();
+
+        API.get(PageManager.class).show(TestPage.class);
     }
 
     @Override
