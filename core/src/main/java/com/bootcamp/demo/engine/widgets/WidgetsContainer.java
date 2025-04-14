@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.Pools;
 import lombok.Getter;
 import lombok.Setter;
 
-public class WidgetsList<T extends Table> extends Table {
+public class WidgetsContainer<T extends Table> extends Table {
 
     @Getter
     protected final Array<T> widgets = new Array<>();
@@ -21,32 +21,32 @@ public class WidgetsList<T extends Table> extends Table {
     @Setter
     private IWidgetReset<T> widgetReset;
 
-    public WidgetsList (int widgetSize, int widgetPerRow, int space) {
+    public WidgetsContainer (int widgetSize, int widgetPerRow, int space) {
         this(widgetSize, widgetSize, widgetPerRow, space);
     }
 
-    public WidgetsList (int widgetWidth, int widgetHeight, int widgetPerRow, int space) {
+    public WidgetsContainer (int widgetWidth, int widgetHeight, int widgetPerRow, int space) {
         this(widgetWidth, widgetHeight, widgetPerRow, space, space);
     }
 
-    public WidgetsList (int widgetWidth, int widgetHeight, int widgetPerRow, int verticalSpace, int horizontalSpace) {
+    public WidgetsContainer (int widgetWidth, int widgetHeight, int widgetPerRow, int verticalSpace, int horizontalSpace) {
         this.widgetPerRow = widgetPerRow;
 
         top().left().defaults().size(widgetWidth, widgetHeight).space(verticalSpace, horizontalSpace, verticalSpace, horizontalSpace);
     }
 
-    public WidgetsList (int widgetPerRow, int space) {
+    public WidgetsContainer (int widgetPerRow, int space) {
         this.widgetPerRow = widgetPerRow;
 
         top().left().defaults().space(space);
     }
 
-    public WidgetsList (int widgetPerRow) {
+    public WidgetsContainer (int widgetPerRow) {
         this.widgetPerRow = widgetPerRow;
         top().left();
     }
 
-    public WidgetsList () {
+    public WidgetsContainer () {
         top().left();
     }
 
@@ -90,9 +90,15 @@ public class WidgetsList<T extends Table> extends Table {
         clearChildren();
     }
 
-    public WidgetsList<T> reserveCells (boolean reserveCells) {
+    public WidgetsContainer<T> reserveCells (boolean reserveCells) {
         this.reserveCells = reserveCells;
         return this;
+    }
+
+    public static <T extends Table> WidgetsContainer<T> makeHorizontal () {
+        final WidgetsContainer<T> tableWidgetsContainer = new WidgetsContainer<>(Integer.MAX_VALUE);
+        tableWidgetsContainer.reserveCells(false);
+        return tableWidgetsContainer;
     }
 
     public interface IWidgetReset<T> {

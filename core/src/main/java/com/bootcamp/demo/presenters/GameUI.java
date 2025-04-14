@@ -6,13 +6,13 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.bootcamp.demo.engine.Resources;
 import com.bootcamp.demo.engine.Squircle;
-import com.bootcamp.demo.engine.widgets.WidgetsList;
 import com.bootcamp.demo.events.core.EventListener;
 import com.bootcamp.demo.events.core.EventModule;
 import com.bootcamp.demo.managers.API;
@@ -34,44 +34,40 @@ public class GameUI extends ScreenAdapter implements Disposable, EventListener {
     @Getter @Setter
     private boolean buttonPressed;
 
-    // Constants for configuration
-    private static final int DEFAULT_ROWS = 3;
-    private static final int DEFAULT_COLS = 4;
-    private static final Color GRID_BG_COLOR = Color.WHITE;
-    private static final Color CELL_BG_COLOR = Color.GRAY;
-
-    public GameUI(Viewport viewport) {
+    public GameUI (Viewport viewport) {
         API.Instance().register(GameUI.class, this);
         API.get(EventModule.class).registerListener(this);
 
         rootUI = new Table();
         rootUI.setFillParent(true);
 
+        // init stage
         stage = new Stage(viewport);
         stage.addActor(rootUI);
 
-       mainPageCell = rootUI.add().grow();
-        //playground();
+        // construct
+        mainPageCell = rootUI.add().grow();
+
+        API.get(PageManager.class).show(TestPage.class);
     }
 
     @Override
-    public void render(float delta) {
-        if (Gdx.app.getInput().isKeyJustPressed(Input.Keys.T)){
-            API.get(PageManager.class).show(TestPage.class);
-        }
+    public void render (float delta) {
         stage.act(delta);
         stage.draw();
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.T)) {
+            API.get(PageManager.class).show(TestPage.class);
+        }
     }
 
     @Override
-    public void resize(int width, int height) {
+    public void resize (int width, int height) {
         stage.getViewport().update(width, height, true);
     }
 
     @Override
-    public void dispose() {
+    public void dispose () {
         stage.dispose();
     }
-
-
 }

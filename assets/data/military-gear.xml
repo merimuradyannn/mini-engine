@@ -1,0 +1,20 @@
+<root>
+    <weapon>
+        <item name="night-vision" title="Night Vision" icon="icons/ui-mission-item-night-vision" rarity="rare"/>
+    </weapon>
+    <melee>
+        <item name="night-vision" title="Night Vision" icon="icons/ui-mission-item-night-vision" rarity="rare"/>
+    </melee>
+    <head>
+        <item name="night-vision" title="Night Vision" icon="icons/ui-mission-item-night-vision" rarity="rare"/>
+    </head>
+    <body>
+        <item name="night-vision" title="Night Vision" icon="icons/ui-mission-item-night-vision" rarity="rare"/>
+    </body>
+    <gloves>
+        <item name="night-vision" title="Night Vision" icon="icons/ui-mission-item-night-vision" rarity="rare"/>
+    </gloves>
+    <shoes>
+        <item name="night-vision" title="Night Vision" icon="icons/ui-mission-item-night-vision" rarity="rare"/>
+    </shoes>
+</root>
