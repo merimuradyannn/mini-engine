@@ -27,7 +27,7 @@ public class Lwjgl3Launcher {
         config.setWindowedMode((int)(res[0] * scale), (int)(res[1] * scale));
         config.setForegroundFPS(60);
         config.setHdpiMode(HdpiMode.Pixels);
-        config.setWindowPosition(200, -800);
+        config.setWindowPosition(200, 200);
         config.setTitle("mini zoqanch");
         return config;
     }
